@@ -5,14 +5,11 @@
 #
 
 
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-# export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/go/bin:/usr/local/git/bin:$HOME/.composer/vendor/bin:$PATH
-export PATH=/opt/homebrew/bin:$PATH
-export PATH=/Users/yuan/.local/bin:$PATH
-# GO Config
+# PATH configuration (/opt/homebrew/bin takes precedence)
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
+# Go
 export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
+export PATH="$PATH:$GOPATH/bin"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -213,6 +210,5 @@ export COMPOSER_MEMORY_LIMIT=-1
 #shopt -s extdebug
 #trap prod_command_trap DEBUG
 
-export PATH="/opt/homebrew/sbin:$PATH"
 # OPENAI_API_KEY has been moved to ~/.aliases (gitignored). Add it there:
 # export OPENAI_API_KEY=$(op item get "openai_apikey" --fields credential)
