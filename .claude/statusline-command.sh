@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 input=$(cat)
 cwd=$(echo "$input" | jq -r '.workspace.current_dir')
 model=$(echo "$input" | jq -r '.model.display_name')
@@ -27,8 +27,9 @@ total_input=$(echo "$input" | jq -r '.context_window.total_input_tokens // 0')
 total_output=$(echo "$input" | jq -r '.context_window.total_output_tokens // 0')
 
 # Powerline separator characters
-SEP=""
-SEP_THIN=""
+SEP=$'\ue0b0'
+SEP_THIN=$'\ue0b1'
+GIT_ICON=$'\ue0a0'
 
 # Build the prompt in agnoster style with powerline separators
 output=""
@@ -43,7 +44,7 @@ output+="\033[48;5;33m\033[97m $display_dir \033[0m"
 # Segment 3: Git branch (if in git repo)
 if [ -n "$git_branch" ]; then
     output+="\033[38;5;33m\033[48;5;22m$SEP\033[0m"
-    output+="\033[48;5;22m\033[97m \ue0a0 $git_branch$git_dirty \033[0m"
+    output+="\033[48;5;22m\033[97m $GIT_ICON $git_branch$git_dirty \033[0m"
     output+="\033[38;5;22m\033[48;5;238m$SEP\033[0m"
 else
     output+="\033[38;5;33m\033[48;5;238m$SEP\033[0m"
@@ -62,8 +63,10 @@ if [ -n "$used_percentage" ]; then
         token_display="$total_tokens"
     fi
     output+="\033[38;5;238m\033[48;5;58m$SEP\033[0m"
-    output+="\033[48;5;58m\033[97m ${used_percentage}% $SEP_THIN ${token_display} \033[0m"
-    output+="\033[38;5;58m$SEP\033[0m"
+    output+="\033[48;5;58m\033[97m ${used_percentage}% \033[0m"
+    output+="\033[38;5;58m\033[48;5;94m$SEP\033[0m"
+    output+="\033[48;5;94m\033[97m ${token_display} \033[0m"
+    output+="\033[38;5;94m$SEP\033[0m"
 else
     output+="\033[38;5;238m$SEP\033[0m"
 fi
