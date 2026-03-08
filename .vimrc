@@ -5,6 +5,7 @@ set cursorline          " highlight the current line
 set nobackup            " don't create pointless backup files; Use VCS instead
 set autoread            " watch for file changes
 set number              " show line numbers
+set relativenumber      " show relative line numbers
 set showcmd             " show selection metadata
 set showmode            " show INSERT, VISUAL, etc. mode
 set showmatch           " show matching brackets
@@ -39,11 +40,18 @@ set showmatch           " show matching bracket
 set guioptions=aAace    " don't show scrollbar in MacVim
 " call pathogen#infect()  " use pathogen
 
+" mouse
+set mouse=a             " enable mouse in all modes (select, scroll, resize)
+
 " clipboard
 set clipboard=unnamed   " allow yy, etc. to interact with OS X clipboard
 
 " shortcuts
 map <F2> :NERDTreeToggle<CR>
+
+" center after half-page jumps
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
 
 " remapped keys
 inoremap {      {}<Left>

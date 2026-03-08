@@ -9,6 +9,7 @@
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/go/bin:/usr/local/git/bin:$HOME/.composer/vendor/bin:$PATH
 export PATH=/opt/homebrew/bin:$PATH
+export PATH=/Users/yuan/.local/bin:$PATH
 # GO Config
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
@@ -80,7 +81,12 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git brew history kubectl history-substring-search)
+plugins=(git brew history kubectl history-substring-search fzf zsh-autosuggestions zsh-syntax-highlighting)
+
+# Add Homebrew completions to fpath (required on Apple Silicon where brew is at /opt/homebrew).
+if type brew &>/dev/null; then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
 
 source $ZSH/oh-my-zsh.sh
 
@@ -122,9 +128,8 @@ then
 fi
 
 # Allow history search via up/down keys.
-# source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-# bindkey "^[[A" history-substring-search-up
-# bindkey "^[[B" history-substring-search-down
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
 
 # Git aliases.
 alias gs='git status'
@@ -136,8 +141,6 @@ alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %
 # Terraform aliases.
 alias tf='terraform'
 
-# Completions.
-autoload -Uz compinit && compinit
 # Case insensitive.
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
 
@@ -210,3 +213,6 @@ export COMPOSER_MEMORY_LIMIT=-1
 #shopt -s extdebug
 #trap prod_command_trap DEBUG
 
+export PATH="/opt/homebrew/sbin:$PATH"
+# OPENAI_API_KEY has been moved to ~/.aliases (gitignored). Add it there:
+# export OPENAI_API_KEY=$(op item get "openai" --fields credential)
