@@ -215,4 +215,4 @@ export COMPOSER_MEMORY_LIMIT=-1
 
 export PATH="/opt/homebrew/sbin:$PATH"
 # OPENAI_API_KEY has been moved to ~/.aliases (gitignored). Add it there:
-# export OPENAI_API_KEY=$(op item get "openai" --fields credential)
+# export OPENAI_API_KEY=$(op item get "openai_apikey" --fields credential)
