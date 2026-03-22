@@ -1,7 +1,26 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(npm run lint)",
+      "Bash(git status)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Aws:*",
+      "Bash(curl:*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./secrets/**)"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(rm *)"
+    ]
+  },
+  "model": "sonnet",
   "statusLine": {
     "type": "command",
     "command": "zsh ~/.claude/statusline-command.sh"
   },
-  "model": "sonnet"
+  "skipDangerousModePermissionPrompt": true
 }
