@@ -17,7 +17,7 @@
       "Bash(rm *)"
     ]
   },
-  "model": "sonnet",
+  "model": "opus",
   "statusLine": {
     "type": "command",
     "command": "zsh ~/.claude/statusline-command.sh"
