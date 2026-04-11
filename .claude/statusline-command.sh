@@ -43,7 +43,9 @@ GIT_ICON=$'\ue0a0'
 # Overlay0 (text): #6c7086  (used as dark fg on colored bg)
 
 BASE="\033[38;2;30;30;46m"          # #1e1e2e fg
+SURF0_FG="\033[38;2;49;50;68m"      # #313244 fg
 SURF0_BG="\033[48;2;49;50;68m"      # #313244 bg
+SURF1_FG="\033[38;2;69;71;90m"      # #45475a fg
 SURF1_BG="\033[48;2;69;71;90m"      # #45475a bg
 PINK_FG="\033[38;2;245;194;231m"    # #f5c2e7
 PINK_BG="\033[48;2;245;194;231m"    # #f5c2e7
@@ -63,7 +65,7 @@ output=""
 output+="${SURF0_BG}${PINK_FG} ${user} ${RESET}"
 
 # Separator: surface0 -> blue
-output+="${BLUE_BG}${BASE}${SEP}${RESET}"
+output+="${BLUE_BG}${SURF0_FG}${SEP}${RESET}"
 
 # Segment 2: current directory — dark text on blue bg
 output+="${BLUE_BG}${DARK_FG} ${display_dir} ${RESET}"
@@ -88,11 +90,11 @@ if [ -n "$used_percentage" ]; then
     else
         token_display="$total_tokens"
     fi
-    output+="${SURF0_BG}${MAUVE_FG}${SEP}${RESET}"
+    output+="${SURF0_BG}${SURF1_FG}${SEP}${RESET}"
     output+="${SURF0_BG}${YELLOW_FG} ctx:${used_percentage}% ${token_display}tok ${RESET}"
-    output+="${RESET}${SURF0_BG}${SEP}${RESET}"
+    output+="${SURF0_FG}${SEP}${RESET}"
 else
-    output+="${RESET}${SURF1_BG}${SEP}${RESET}"
+    output+="${SURF1_FG}${SEP}${RESET}"
 fi
 
 printf "%b" "$output"
