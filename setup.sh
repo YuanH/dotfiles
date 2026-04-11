@@ -46,6 +46,38 @@ else
   echo "  skip   zsh-syntax-highlighting (already installed)"
 fi
 
+# catppuccin-zsh oh-my-zsh theme (JannoTjarks/catppuccin-zsh)
+CATPPUCCIN_ZSH_DIR="$ZSH_CUSTOM/themes/catppuccin-zsh"
+if [ ! -d "$CATPPUCCIN_ZSH_DIR" ]; then
+  echo "  install catppuccin-zsh theme"
+  git clone --depth=1 https://github.com/JannoTjarks/catppuccin-zsh.git "$CATPPUCCIN_ZSH_DIR"
+else
+  echo "  skip   catppuccin-zsh theme (already cloned)"
+fi
+
+# Expose theme file + flavors dir under $ZSH_CUSTOM/themes so oh-my-zsh can find them.
+if [ ! -L "$ZSH_CUSTOM/themes/catppuccin.zsh-theme" ]; then
+  ln -sf "$CATPPUCCIN_ZSH_DIR/catppuccin.zsh-theme" "$ZSH_CUSTOM/themes/catppuccin.zsh-theme"
+  echo "  link   catppuccin.zsh-theme"
+else
+  echo "  skip   catppuccin.zsh-theme (already linked)"
+fi
+if [ ! -L "$ZSH_CUSTOM/themes/catppuccin-flavors" ]; then
+  ln -sf "$CATPPUCCIN_ZSH_DIR/catppuccin-flavors" "$ZSH_CUSTOM/themes/catppuccin-flavors"
+  echo "  link   catppuccin-flavors/"
+else
+  echo "  skip   catppuccin-flavors/ (already linked)"
+fi
+
+# catppuccin for tmux
+if [ ! -d "$HOME/.config/tmux/plugins/catppuccin/tmux" ]; then
+  echo "  install catppuccin/tmux"
+  mkdir -p "$HOME/.config/tmux/plugins/catppuccin"
+  git clone -b v2.3.0 https://github.com/catppuccin/tmux.git "$HOME/.config/tmux/plugins/catppuccin/tmux"
+else
+  echo "  skip   catppuccin/tmux (already installed)"
+fi
+
 echo ""
 
 # ---------------------------------------------------------------------------
