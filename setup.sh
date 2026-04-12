@@ -78,6 +78,14 @@ else
   echo "  skip   catppuccin/tmux (already installed)"
 fi
 
+# tmux-weather
+if [ ! -d "$HOME/.config/tmux/plugins/tmux-weather" ]; then
+  echo "  install tmux-weather"
+  git clone --depth=1 https://github.com/xamut/tmux-weather.git "$HOME/.config/tmux/plugins/tmux-weather"
+else
+  echo "  skip   tmux-weather (already installed)"
+fi
+
 echo ""
 
 # ---------------------------------------------------------------------------

@@ -54,6 +54,7 @@ BLUE_BG="\033[48;2;137;180;250m"    # #89b4fa
 TEAL_FG="\033[38;2;148;226;213m"    # #94e2d5
 TEAL_BG="\033[48;2;148;226;213m"    # #94e2d5
 YELLOW_FG="\033[38;2;249;226;175m"  # #f9e2af
+PEACH_FG="\033[38;2;250;179;135m"   # #fab387
 MAUVE_FG="\033[38;2;203;166;247m"   # #cba6f7
 MAUVE_BG="\033[48;2;203;166;247m"   # #cba6f7
 DARK_FG="\033[38;2;30;30;46m"       # dark text for light backgrounds
@@ -90,9 +91,16 @@ if [ -n "$used_percentage" ]; then
     else
         token_display="$total_tokens"
     fi
+    # Separator: surface1 -> surface0 (context % segment)
     output+="${SURF0_BG}${SURF1_FG}${SEP}${RESET}"
-    output+="${SURF0_BG}${YELLOW_FG} ctx:${used_percentage}% ${token_display}tok ${RESET}"
-    output+="${SURF0_FG}${SEP}${RESET}"
+    # Segment 5a: context percentage — yellow on surface0
+    output+="${SURF0_BG}${YELLOW_FG} ctx:${used_percentage}% ${RESET}"
+    # Separator: surface0 -> surface1 (token count segment)
+    output+="${SURF1_BG}${SURF0_FG}${SEP}${RESET}"
+    # Segment 5b: token count — peach on surface1
+    output+="${SURF1_BG}${PEACH_FG} ${token_display}tok ${RESET}"
+    # Final tip: surface1 into terminal bg
+    output+="${SURF1_FG}${SEP}${RESET}"
 else
     output+="${SURF1_FG}${SEP}${RESET}"
 fi
