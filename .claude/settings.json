@@ -22,5 +22,6 @@
     "type": "command",
     "command": "zsh ~/.claude/statusline-command.sh"
   },
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "effortLevel": "xhigh"
 }

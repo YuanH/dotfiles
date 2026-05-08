@@ -30,6 +30,22 @@ else
   echo "  skip   fzf (already installed)"
 fi
 
+# zoxide (smarter cd)
+if ! command -v zoxide &>/dev/null; then
+  echo "  install zoxide"
+  brew install zoxide
+else
+  echo "  skip   zoxide (already installed)"
+fi
+
+# sesh (tmux session manager)
+if ! command -v sesh &>/dev/null; then
+  echo "  install sesh"
+  brew install sesh
+else
+  echo "  skip   sesh (already installed)"
+fi
+
 # zsh-autosuggestions
 if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
   echo "  install zsh-autosuggestions"

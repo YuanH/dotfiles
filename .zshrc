@@ -194,6 +194,30 @@ knownrm() {
 # Allow Composer to use almost as much RAM as Chrome.
 export COMPOSER_MEMORY_LIMIT=-1
 
+# zoxide (smarter cd). Must run after compinit (i.e. after oh-my-zsh sources).
+# `z <query>` jumps; `zi` opens interactive fzf picker.
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh)"
+fi
+
+# sesh (tmux session manager) + fzf widget bound to Alt-s.
+if command -v sesh &>/dev/null; then
+  function sesh-sessions() {
+    {
+      exec </dev/tty
+      exec <&1
+      local session
+      session=$(sesh list -t -c | fzf --height 40% --reverse --border-label ' sesh ' --border --prompt '⚡  ')
+      [[ -z "$session" ]] && return
+      sesh connect $session
+    }
+  }
+  zle     -N             sesh-sessions
+  bindkey -M emacs '\es' sesh-sessions
+  bindkey -M vicmd '\es' sesh-sessions
+  bindkey -M viins '\es' sesh-sessions
+fi
+
 # Ask for confirmation when 'prod' is in a command string.
 #prod_command_trap () {
 #  if [[ $BASH_COMMAND == *prod* ]]
