@@ -237,3 +237,5 @@ fi
 
 # OPENAI_API_KEY has been moved to ~/.aliases (gitignored). Add it there:
 # export OPENAI_API_KEY=$(op item get "openai_apikey" --fields credential)
+#
+READWISE_TOKEN=FReNovIEZ7VMjfU4ZxLndaOjcGAi6zi8gbENinkC1dq7HygkqY
