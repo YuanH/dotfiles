@@ -22,7 +22,7 @@
 	colorMoved = zebra
 
 [credential]
-	helper = osxkeychain
+#	helper = osxkeychain
 
 [rerere]
 	enabled = true
