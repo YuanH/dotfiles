@@ -235,7 +235,7 @@ fi
 #shopt -s extdebug
 #trap prod_command_trap DEBUG
 
-# OPENAI_API_KEY has been moved to ~/.aliases (gitignored). Add it there:
-# export OPENAI_API_KEY=$(op item get "openai_apikey" --fields credential)
-#
-READWISE_TOKEN=FReNovIEZ7VMjfU4ZxLndaOjcGAi6zi8gbENinkC1dq7HygkqY
+# Secrets (OPENAI_API_KEY, READWISE_TOKEN, etc.) live in ~/.aliases (gitignored).
+# Example:
+#   export OPENAI_API_KEY=$(op item get "openai_apikey" --fields credential)
+#   export READWISE_TOKEN=$(op item get "readwise_token" --fields credential)
