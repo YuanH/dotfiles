@@ -46,6 +46,18 @@ else
   echo "  skip   sesh (already installed)"
 fi
 
+# readwise CLI
+if ! command -v readwise &>/dev/null; then
+  if command -v npm &>/dev/null; then
+    echo "  install @readwise/cli"
+    npm install -g @readwise/cli
+  else
+    echo "  warn   skipping @readwise/cli — npm not found (install Node.js, e.g. 'brew install node')"
+  fi
+else
+  echo "  skip   @readwise/cli (already installed)"
+fi
+
 # zsh-autosuggestions
 if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
   echo "  install zsh-autosuggestions"
