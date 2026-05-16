@@ -125,6 +125,14 @@ then
   source ~/.aliases
 fi
 
+# Source everything under ~/.zsh/ (function/alias modules like git.zsh).
+if [ -d ~/.zsh ]; then
+  for zshfile in ~/.zsh/*.zsh(N); do
+    source "$zshfile"
+  done
+  unset zshfile
+fi
+
 # Allow history search via up/down keys.
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
@@ -239,3 +247,8 @@ fi
 # Example:
 #   export OPENAI_API_KEY=$(op item get "openai_apikey" --fields credential)
 #   export READWISE_TOKEN=$(op item get "readwise_token" --fields credential)
+
+# Sesh
+
+alias sc='sesh connect "$(sesh list | fzf)"'
+alias sn='sesh connect .'
