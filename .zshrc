@@ -247,3 +247,8 @@ fi
 # Example:
 #   export OPENAI_API_KEY=$(op item get "openai_apikey" --fields credential)
 #   export READWISE_TOKEN=$(op item get "readwise_token" --fields credential)
+
+# Sesh
+
+alias sc='sesh connect "$(sesh list | fzf)"'
+alias sn='sesh connect .'
