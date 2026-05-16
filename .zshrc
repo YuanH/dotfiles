@@ -125,6 +125,14 @@ then
   source ~/.aliases
 fi
 
+# Source everything under ~/.zsh/ (function/alias modules like git.zsh).
+if [ -d ~/.zsh ]; then
+  for zshfile in ~/.zsh/*.zsh(N); do
+    source "$zshfile"
+  done
+  unset zshfile
+fi
+
 # Allow history search via up/down keys.
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down

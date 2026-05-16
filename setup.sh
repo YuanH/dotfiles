@@ -150,6 +150,29 @@ done
 echo ""
 
 # ---------------------------------------------------------------------------
+# .zsh/ directory (sourced files)
+# ---------------------------------------------------------------------------
+
+zsh_src="$DOTFILES_DIR/.zsh"
+zsh_dest="$HOME/.zsh"
+
+if [ -d "$zsh_src" ]; then
+  if [ -L "$zsh_dest" ] && [ "$(readlink "$zsh_dest")" = "$zsh_src" ]; then
+    echo "  skip   .zsh/ (already symlinked)"
+  else
+    if [ -e "$zsh_dest" ] || [ -L "$zsh_dest" ]; then
+      backup="$zsh_dest.backup.$TIMESTAMP"
+      mv "$zsh_dest" "$backup"
+      echo "  backup .zsh/ → $backup"
+    fi
+    ln -s "$zsh_src" "$zsh_dest"
+    echo "  link   .zsh/ → $zsh_src"
+  fi
+fi
+
+echo ""
+
+# ---------------------------------------------------------------------------
 # Claude configs
 # ---------------------------------------------------------------------------
 
