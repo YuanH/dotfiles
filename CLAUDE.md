@@ -11,6 +11,7 @@ This is a personal dotfiles repository for macOS. It contains shell configuratio
 - `.zshrc` — Zsh shell config: oh-my-zsh (agnoster theme), plugins, PATH setup, aliases, and shell functions. Sources `~/.aliases` if present (gitignored, for local/sensitive overrides).
 - `.gitconfig` — Git settings, aliases, and editor config (vi).
 - `.vimrc` — Vim settings: 2-space indentation, syntax highlighting, 80-col indicator, NERDTree binding.
+- `.config/nvim/` — Neovim config (`init.lua`, ported from `.vimrc`; plugins via lazy.nvim, pinned in `lazy-lock.json`). Symlinked to `~/.config/nvim`.
 - `.inputrc` — Readline config.
 - `.osx` — macOS system preference automation script (run once on new machines).
 

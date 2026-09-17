@@ -46,6 +46,14 @@ else
   echo "  skip   sesh (already installed)"
 fi
 
+# tree-sitter CLI (nvim-treesitter uses it to build parsers)
+if ! command -v tree-sitter &>/dev/null; then
+  echo "  install tree-sitter-cli"
+  brew install tree-sitter-cli
+else
+  echo "  skip   tree-sitter-cli (already installed)"
+fi
+
 # readwise CLI
 if ! command -v readwise &>/dev/null; then
   if command -v npm &>/dev/null; then
@@ -167,6 +175,30 @@ if [ -d "$zsh_src" ]; then
     fi
     ln -s "$zsh_src" "$zsh_dest"
     echo "  link   .zsh/ → $zsh_src"
+  fi
+fi
+
+echo ""
+
+# ---------------------------------------------------------------------------
+# Neovim config (~/.config/nvim)
+# ---------------------------------------------------------------------------
+
+nvim_src="$DOTFILES_DIR/.config/nvim"
+nvim_dest="$HOME/.config/nvim"
+
+if [ -d "$nvim_src" ]; then
+  mkdir -p "$HOME/.config"
+  if [ -L "$nvim_dest" ] && [ "$(readlink "$nvim_dest")" = "$nvim_src" ]; then
+    echo "  skip   .config/nvim/ (already symlinked)"
+  else
+    if [ -e "$nvim_dest" ] || [ -L "$nvim_dest" ]; then
+      backup="$nvim_dest.backup.$TIMESTAMP"
+      mv "$nvim_dest" "$backup"
+      echo "  backup .config/nvim/ → $backup"
+    fi
+    ln -s "$nvim_src" "$nvim_dest"
+    echo "  link   .config/nvim/ → $nvim_src"
   fi
 fi
 
