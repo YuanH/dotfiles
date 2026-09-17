@@ -150,6 +150,12 @@ git() {
     push-n)
       git-pushn "$@"
       ;;
+    worktree-clone)
+      git-worktree-clone "$@"
+      ;;
+    worktree-convert)
+      git-worktree-convert "$@"
+      ;;
     worktree-new)
       git-worktree-new "$@"
       ;;
@@ -244,6 +250,43 @@ git-worktree-convert() {
   zoxide add "$default_branch"
   git worktree add review
   zoxide add review
+}
+
+git-worktree-clone() {
+  if [[ $# -lt 1 || $# -gt 2 ]]; then
+    echo "usage: git-worktree-clone <url> [dir]" >&2
+    return 1
+  fi
+
+  local url=$1 dir=${2:-}
+  if [[ -z "$dir" ]]; then
+    dir="${url##*/}"
+    dir="${dir%.git}"
+  fi
+
+  if [[ -e "$dir" ]]; then
+    echo "git-worktree-clone: $dir: already exists" >&2
+    return 2
+  fi
+
+  mkdir "$dir" || return 3
+  cd "$dir" || return 3
+
+  echo "=> git clone --bare $url .git" >&2
+  git clone --bare "$url" .git || return 4
+
+  # bare clones default refs/heads/*:refs/heads/*, which collides with
+  # worktree branches. Re-point fetch to the standard remotes namespace.
+  git -C .git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+  git -C .git fetch origin
+
+  local default_branch
+  default_branch=$(git -C .git symbolic-ref --short HEAD)
+
+  git worktree add "$default_branch"
+  zoxide add "$PWD/$default_branch"
+  git worktree add review
+  zoxide add "$PWD/review"
 }
 
 git-worktree-new() {
