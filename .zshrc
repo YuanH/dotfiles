@@ -252,3 +252,15 @@ fi
 
 alias sc='sesh connect "$(sesh list | fzf)"'
 alias sn='sesh connect .'
+
+# fnm (Fast Node Manager)
+eval "$(fnm env --use-on-cd --shell zsh)"
+# Keep Homebrew node (v26) ahead of fnm's shim so it's the default;
+# fnm stays available (e.g. `fnm use <version>`) if explicitly invoked.
+export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/Users/yuanhuang/.bun/bin:$PATH"
+
+# OpenClaw Completion
+source "/Users/yuanhuang/.openclaw/completions/openclaw.zsh"
+
+. "$HOME/.local/bin/env"
